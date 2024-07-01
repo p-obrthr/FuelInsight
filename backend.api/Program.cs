@@ -1,29 +1,55 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-builder.Services.AddHttpClient();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// keys and secrets
-builder.Configuration.AddJsonFile("appsettings.secrets.json", optional: true, reloadOnChange: true);
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+internal class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // SQLite database
+        var connectionStringBuilder = new SqliteConnectionStringBuilder();
+        connectionStringBuilder.DataSource = "./fuelinsight.db";
+        using var connection = new SqliteConnection(connectionStringBuilder.ConnectionString);
+        connection.Open();
+        var tableCmd = connection.CreateCommand();
+        tableCmd.CommandText = "CREATE TABLE IF NOT EXISTS fuelstation(id TEXT, name VARCHAR(128), price DECIMAL, time TEXT);";
+        tableCmd.ExecuteNonQuery();
+
+        // Add services to the container
+        builder.Services.AddControllers();
+        builder.Services.AddHttpClient();
+        builder.Services.AddSingleton(connection); 
+        builder.Services.AddSingleton<TankerKoenigApiFetchService>(); 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+        // keys and secrets
+        builder.Configuration.AddJsonFile("appsettings.secrets.json", optional: true, reloadOnChange: true);
+
+        var app = builder.Build();
+
+        // fetch data from tankerkoenig api
+        // using var scope = app.Services.CreateScope();
+        // var TankerKoenigApiFetchService = scope.ServiceProvider.GetRequiredService<TankerKoenigApiFetchService>();
+        // await TankerKoenigApiFetchService.FetchDataAndSaveToDatabase();
+        
+
+        // Configure the HTTP request pipeline
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

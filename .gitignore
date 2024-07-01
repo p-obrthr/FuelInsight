@@ -580,3 +580,6 @@ FodyWeavers.xsd
 
 *.appsettings.secrets.json
 appsettings.secrets.json
+
+*fuelinsight.db
+fuelinsight.db

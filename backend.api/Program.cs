@@ -21,6 +21,16 @@ internal class Program
         tableCmd.CommandText = "CREATE TABLE IF NOT EXISTS fuelstation(id TEXT, name VARCHAR(128), price DECIMAL, time TEXT);";
         tableCmd.ExecuteNonQuery();
 
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin",
+                builder => builder
+                    .WithOrigins("http://127.0.0.1:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+        });
+
         // Add services to the container
         builder.Services.AddControllers();
         builder.Services.AddHttpClient();
@@ -46,6 +56,9 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors("AllowSpecificOrigin");
+
 
         app.UseHttpsRedirection();
         app.UseAuthorization();

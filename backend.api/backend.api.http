@@ -1,6 +1,0 @@
-@backend.api_HostAddress = http://localhost:5136
-
-GET http://localhost:5136/weatherforecast/
-Accept: application/json
-
-###

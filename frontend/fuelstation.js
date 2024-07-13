@@ -36,7 +36,7 @@ methods:
 {
     refreshData()
     {
-        axios.get(variables.API_URL + "fuelstation")
+        axios.get(variables.API_URL + "fuelstations")
         .then((response)=>
         {
             this.fuelstations=response.data;

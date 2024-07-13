@@ -1,51 +1,56 @@
-const fuelstation={template: `<h1>Fuelstation Prices</h1>
+const fuelstation={template: `<h1>Prices of {{ data.name }}</h1>
 
-<div>
-
-<table class="table table-striped">
-<thead>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Price
-        </th>
-    </tr>
-</thead>
-<tbody>
-    <tr v-for="fs in fuelstations">
-        <td>{{fs.name}}</td>
-        <td>{{fs.price}}</td>
-    </tr>
-</tbody>
-</table>
-
-
-
-</div>
-`,
-
-data()
-{
-    return{
-        fuelstations:[],
-    }
-},
-methods:
-{
-    refreshData()
+    <div>
+    
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Price
+            </th>
+            <th>
+                Time
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-if="data">
+            <td>{{ data.price }}</td>
+            <td>{{ data.created }}</td>
+        </tr>
+    </tbody>
+    </table>
+    
+    
+    
+    </div>
+    `,
+    
+    data()
     {
-        axios.get(variables.API_URL + "fuelstations")
-        .then((response)=>
+        return{
+            data:[],
+        }
+    },
+    methods:
+    {
+        refreshData()
         {
-            this.fuelstations=response.data;
-        });
+            const id = this.$route.params.id;
+            axios.get(`${variables.API_URL}fuelstations/${id}`)
+            .then((response)=>
+            {
+                this.data=response.data;
+            });
+        }
+    },
+    mounted:function()
+    {
+        this.refreshData(); 
+    },
+    watch: {
+        '$route.params.id': 'refreshData'
     }
-},
-mounted:function()
-{
-    this.refreshData(); 
+    
 }
-
-}
+    

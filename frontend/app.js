@@ -8,7 +8,8 @@ const app = Vue.createApp({
 
 const routes = [
     {path: '/home', component:home},
-    {path: '/fuelstation', component:fuelstation}
+    {path: '/fuelstations', component:allFuelstations},
+    {path: '/fuelstation/:id', component:fuelstation}
 ]
 
 const router = VueRouter.createRouter({
@@ -16,5 +17,6 @@ const router = VueRouter.createRouter({
     routes
 })
 
+app.component('navbar', navbar);
 app.use(router)
 app.mount('#app')

@@ -32,3 +32,8 @@ export async function create(name, price) {
     const id = result.insertId;
     return getFuelStation(id);
 }
+
+export async function getNames() {
+    const [rows] = await pool.query("SELECT DISTINCT id, name, created FROM fuelstation;");
+    return rows;
+}

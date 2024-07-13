@@ -1,10 +1,12 @@
 import express from "express";
 const app = express();
 import cors from "cors";
-import {getFuelStations, getFuelStation, create} from './database.js';
+import {getFuelStations, getFuelStation, getNames, create} from './database.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 app.use(cors({
-    origin: 'http://127.0.0.1:3000',
+    origin: process.env.FRONTEND_ORIGIN ,
     methods: 'GET',
     credentials: false, 
 }));
@@ -18,6 +20,11 @@ app.get("/fuelstations/:id", async (req, res) => {
     const id = req.params.id;
     const fuelstation = await getFuelStation(id);
     res.json(fuelstation);
+});
+
+app.get("/all", async (req, res) => {
+    const names = await getNames();
+    res.json(names);
 });
 
 app.post("")

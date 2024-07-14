@@ -1,17 +1,17 @@
-import { getFuelStations, getFuelStation, getNames } from '../Models/fuelstation.js';
+import { getAllFuelDataDb, getFuelDataFromStationIdDb } from '../Models/fuelPrices.js';
 
-export const getAllFuelStations = async (req, res) => {
+export const getAllFuelData = async (req, res) => {
     try {
-        const stations = await getFuelStations();
+        const stations = await getAllFuelDataDb();
         res.json(stations);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
 
-export const getSingleFuelStation = async (req, res) => {
+export const getFuelDataFromStation = async (req, res) => {
     try {
-        const station = await getFuelStation(req.params.id);
+        const station = await getFuelDataFromStationIdDb(req.params.id);
         if (!station) 
             return res.status(404).json({ message: 'Fuel station not found' });
         res.json(station);
@@ -20,19 +20,19 @@ export const getSingleFuelStation = async (req, res) => {
     }
 };
 
-export const create = async (req, res) => {
+export const createFuelDataStation = async (req, res) => {
     try {
         const { name, price } = req.body;
-        const newStation = await createFuelStation(name, price);
+        const newStation = await createFuelDataStationDb(name, price);
         res.status(201).json(newStation);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
 
-export const getFuelStationNames = async (req, res) => {
+export const getFuelNames = async (req, res) => {
     try {
-        const names = await getNames();
+        const names = await getNamesDb();
         res.json(names);
     } catch (err) {
         res.status(500).json({ message: err.message });

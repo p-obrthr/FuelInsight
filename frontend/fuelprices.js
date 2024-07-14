@@ -1,4 +1,4 @@
-const allFuelstations={template: `<h1>Fuelstation Prices</h1>
+const allFuelData={template: `<h1>Fuelstation Prices</h1>
 
 <div>
 
@@ -14,7 +14,7 @@ const allFuelstations={template: `<h1>Fuelstation Prices</h1>
     </tr>
 </thead>
 <tbody>
-    <tr v-for="fs in fuelstations">
+    <tr v-for="fs in fuelData">
         <td>{{fs.name}}</td>
         <td>{{fs.price}}</td>
     </tr>
@@ -29,17 +29,17 @@ const allFuelstations={template: `<h1>Fuelstation Prices</h1>
 data()
 {
     return{
-        fuelstations:[],
+        fuelData:[],
     }
 },
 methods:
 {
     refreshData()
     {
-        axios.get(variables.API_URL + "fuelstations/all")
+        axios.get(variables.API_URL + "fuelprices/all")
         .then((response)=>
         {
-            this.fuelstations=response.data;
+            this.fuelData=response.data;
         });
     }
 },

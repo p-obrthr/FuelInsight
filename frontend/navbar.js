@@ -12,7 +12,7 @@ const navbar = {
       return {
           navLinks: [
               { label: 'Home', path: '/home' },
-              { label: 'All', path: '/fuelstations' }
+              { label: 'All', path: '/fuelprices' }
           ],
       };
   },
@@ -23,7 +23,7 @@ const navbar = {
                 console.log("API response:", response.data);
                   const fuelStationLinks = response.data.map(fs => ({
                       label: fs.name,
-                      path: `/fuelstation/${fs.id}`
+                      path: `/fuelstations/${fs.id}`
                   }));
                   this.navLinks = [...this.navLinks, ...fuelStationLinks];
               })

@@ -1,4 +1,4 @@
-const fuelstation={template: `<h1>Prices of {{ data.name }}</h1>
+const fuelstation={template: `<h1>Prices</h1>
 
     <div>
     
@@ -14,9 +14,9 @@ const fuelstation={template: `<h1>Prices of {{ data.name }}</h1>
         </tr>
     </thead>
     <tbody>
-        <tr v-if="data">
-            <td>{{ data.price }}</td>
-            <td>{{ data.created }}</td>
+        <tr v-for="item in data">
+            <td>{{ item.price }}</td>
+            <td>{{ item.created }}</td>
         </tr>
     </tbody>
     </table>
@@ -37,7 +37,7 @@ const fuelstation={template: `<h1>Prices of {{ data.name }}</h1>
         refreshData()
         {
             const id = this.$route.params.id;
-            axios.get(`${variables.API_URL}fuelstations/${id}`)
+            axios.get(`${variables.API_URL}fuelprices/${id}`)
             .then((response)=>
             {
                 this.data=response.data;

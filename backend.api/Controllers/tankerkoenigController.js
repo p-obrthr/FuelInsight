@@ -1,4 +1,3 @@
-import mysql from 'mysql2'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -14,6 +13,15 @@ const lng = process.env.TANKERKOENIG_LNG;
 const rad = process.env.TANKERKOENIG_RAD;
 
 export async function getCurrentData() {
-    //
+    try {
+        var url = `https://creativecommons.tankerkoenig.de/json/list.php?lat=${lat}&lng=${lng}rad=${rad}&sort=price&type=e5&apikey=${api_key}`;
+        const response = await axios.get('url');
+        const { stations } = response.data; 
+
+        await saveTankerData(stations);
+        res.status(200).json({ message: 'fuel data fetched' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 }
 

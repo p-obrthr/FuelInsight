@@ -18,7 +18,7 @@ const navbar = {
   },
   methods: {
       fetchFuelStationNames() {
-          axios.get(variables.API_URL + "all")
+          axios.get(variables.API_URL + "fuelstations/all")
               .then(response => {
                 console.log("API response:", response.data);
                   const fuelStationLinks = response.data.map(fs => ({

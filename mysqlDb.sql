@@ -11,7 +11,7 @@ CREATE TABLE fuelprice (
 
 CREATE TABLE fuelstation (
 	id integer PRIMARY KEY AUTO_INCREMENT,
-	tankerId integer NOT NULL,
+	tankerId VARCHAR(255) NOT NULL,
 	name VARCHAR(255) NOT NULL,
 	lat double NOT NULL,
 	lng double NOT NULL,
@@ -21,8 +21,8 @@ CREATE TABLE fuelstation (
 -- fill dummy data 
 INSERT INTO fuelstation (tankerId, name, lat, lng)
 VALUES
-(234, 'aral', 2.34, 23.4),
-(345, 'star', 3.45, 34.5);
+('234-1', 'aral', 2.34, 23.4),
+('345-2', 'star', 3.45, 34.5);
 
 INSERT INTO fuelprice (fuelStationId, price)
 VALUES

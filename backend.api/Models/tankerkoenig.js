@@ -1,14 +1,30 @@
 import pool from '../database.js';
 
-// export async function saveTankerData(stationData) {
-//     const query = `
-//         INSERT INTO fuelstation (name, price)
-//         VALUES (?, ?)
-//         ON DUPLICATE KEY UPDATE price = VALUES(price);
-//     `;
+export async function saveTankerData(stationData) {
 
-//     for (const station of stationData) {
-//         const { name, price } = station;
-//         await pool.query(query, [name, price]);
-//     }
-// }
+    const checkStation = `
+        SELECT id FROM fuelstation WHERE tankerId = ?
+    `;
+
+    const insertStation = `
+        INSERT INTO fuelstation (tankerId, name, lat, lng)
+        VALUES (?, ?, ?, ?);
+    `;
+
+    const insertPrice = `
+        INSERT INTO fuelprice (fuelStationId, price)
+        VALUES (?, ?);
+    `;
+
+    for (const station of stationData) {
+        const { id, name, lat, lng, price } = station;
+
+        let [rows] = await pool.query(checkStation, [id]);
+        if (rows.length === 0) {
+            await pool.query(insertStation, [id, name, lat, lng]);
+            [rows] = await pool.query(checkStation, [id]);
+        }
+        const fuelStationId = rows[0].id;
+        await pool.query(insertPrice, [fuelStationId, price]);
+    }
+}

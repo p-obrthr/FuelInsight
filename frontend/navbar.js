@@ -12,7 +12,8 @@ const navbar = {
       return {
           navLinks: [
               { label: 'Home', path: '/home' },
-              { label: 'All', path: '/fuelprices' }
+              { label: 'All', path: '/fuelprices' },
+              { label: 'Current', path: '/current' }
           ],
       };
   },

@@ -8,6 +8,7 @@ const app = Vue.createApp({
 
 const routes = [
     {path: '/home', component:home},
+    {path: '/current', component:currentData},
     {path: '/fuelprices', component:allFuelData},
     {path: '/fuelstations/:id', component:fuelstation}
 ]

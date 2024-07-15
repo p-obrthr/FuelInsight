@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllFuelData, getFuelDataFromStation, getFuelNames }  from '../Controllers/fuelPriceController.js';
+import { getAllFuelData, getFuelDataFromStation, getFuelNames }  from '../Controllers/fuelPriceController';
 
 const router = express.Router();
 

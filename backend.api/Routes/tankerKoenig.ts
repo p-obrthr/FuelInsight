@@ -1,5 +1,5 @@
 import express from "express";
-import { fetchData }  from '../Controllers/tankerkoenigController.js';
+import { fetchData }  from '../Controllers/tankerkoenigController';
 
 const router = express.Router();
 

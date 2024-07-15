@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllFuelStations }  from '../Controllers/fuelStationController.js';
+import { getAllFuelStations }  from '../Controllers/fuelStationController';
 
 const router = express.Router();
 

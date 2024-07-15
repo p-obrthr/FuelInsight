@@ -1,7 +1,14 @@
-import pool from '../database.js';
+import pool from '../database';
 
-export async function saveTankerData(stationData) {
+interface StationData {
+    id: string;
+    name: string;
+    lat: number;
+    lng: number;
+    price: number;
+}
 
+export async function saveTankerData(stationData: StationData[]): Promise<void> {
     const checkStation = `
         SELECT id FROM fuelstation WHERE tankerId = ?
     `;
@@ -19,7 +26,7 @@ export async function saveTankerData(stationData) {
     for (const station of stationData) {
         const { id, name, lat, lng, price } = station;
 
-        let [rows] = await pool.query(checkStation, [id]);
+        let [rows]: any = await pool.query(checkStation, [id]);
         if (rows.length === 0) {
             await pool.query(insertStation, [id, name, lat, lng]);
             [rows] = await pool.query(checkStation, [id]);

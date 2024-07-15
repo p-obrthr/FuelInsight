@@ -1,9 +1,9 @@
-import express from "express";
+import express, {Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from 'dotenv'
-import fuelPricesRoutes from './Routes/fuelPrice.js'; 
-import fuelStationRoutes from './Routes/fuelStation.js'; 
-import tankerKoenigRoutes from './Routes/tankerKoenig.js'; 
+import fuelPricesRoutes from './Routes/fuelPrice'; 
+import fuelStationRoutes from './Routes/fuelstation'; 
+import tankerKoenigRoutes from './Routes/tankerKoenig'; 
 
 dotenv.config();
 

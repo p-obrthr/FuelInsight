@@ -34,14 +34,18 @@
   const email = ref('');
 const password = ref('');
 const username = ref('')
-    const register = async () => {
-        const response = await AuthenticationService.register({
-            username: username.value,
-            email: email.value,
-            password: password.value
-        })
-        console.log(response.data)
-    };
+const register = async () => {
+  try {
+    const response = await AuthenticationService.register({
+      username: username.value,
+      email: email.value,
+      password: password.value
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error('Registration failed:', error);
+  }
+};
   </script>
   
   <style>

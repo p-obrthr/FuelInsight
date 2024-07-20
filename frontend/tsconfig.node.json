@@ -9,7 +9,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "./*ts"
+    "./*ts",
+    "src/components/*", "src/views/Register.vue",
   ],
   "compilerOptions": {
     "composite": true,

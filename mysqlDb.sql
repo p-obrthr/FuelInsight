@@ -18,6 +18,16 @@ CREATE TABLE fuelstation (
     created TIMESTAMP  NOT NULL DEFAULT NOW()   
 );
 
+CREATE TABLE registration (
+    id integer PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created TIMESTAMP  NOT NULL DEFAULT NOW()   
+);
+
+
+
 
 -- fill dummy data 
 -- data für 2 days, 6 fuel sations, hourly

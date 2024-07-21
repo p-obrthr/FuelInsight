@@ -16,7 +16,27 @@ export const getFuelDataFromStation = async (req: Request, res: Response): Promi
         if (!station || station.length === 0) {
             res.status(404).json({ message: 'Fuel station not found' });
         }
-        res.json(station);
+        const name: string = station[0].name;
+        const data_to_python = {
+            stationData: station,
+            mean: undefined,
+            name: name
+        }
+    
+        const spawner = require('child_process').spawn;
+        const pythonProcess = spawner('python', ['py/data.py', JSON.stringify(data_to_python)]);
+        pythonProcess.stdout.on('data', (data: JSON) => {
+            try {
+                const dataString = data.toString();
+                const jsonData = JSON.parse(dataString);
+    
+                console.log('Data received from Python script:', jsonData);
+                res.json(jsonData);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                res.status(500).json({ error: 'Failed to parse JSON data from Python script' });
+            }
+        });
     } catch (err: any) {
         res.status(500).json({ message: err.message });
     }

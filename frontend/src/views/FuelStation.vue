@@ -1,5 +1,7 @@
 <template>
     <div>
+      <h2>{{ data.name }}</h2>
+      <h3>last ten avg: {{ data.mean }}</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -8,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in data" :key="item.id">
+          <tr v-for="item in data.stationData" :key="item.id">
             <td>{{ item.price }}</td>
             <td>{{ item.created }}</td>
           </tr>
@@ -30,6 +32,7 @@
     const id = route.params.id;
     axios.get(`${variables.API_URL}fuelprices/${id}`)
       .then((response) => {
+        // console.log(response.data);
         data.value = response.data;
       });
   };

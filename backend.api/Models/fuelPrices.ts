@@ -19,6 +19,7 @@ export async function getFuelDataFromStationIdDb(id: number): Promise<FuelPrice[
         FROM fuelprice
         JOIN fuelstation ON fuelprice.fuelStationId = fuelstation.id
         WHERE fuelstation.id = ?
+        ORDER BY created DESC;
     `, [id]);
     return rows;
 }

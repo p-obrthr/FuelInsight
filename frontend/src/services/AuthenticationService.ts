@@ -1,4 +1,4 @@
-import Api from '@/services/Api'
+import Api from './Api'
 
 export default {
     register (credentials: any) {
@@ -8,7 +8,7 @@ export default {
         const token = localStorage.getItem('token');
         return !!token;
     },
-    getToken() {
+    getToken() { 
         return localStorage.getItem('token');
     },
     login(credentials: any) {

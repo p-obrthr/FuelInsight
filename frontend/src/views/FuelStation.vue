@@ -25,7 +25,19 @@
   import { useRoute } from 'vue-router';
   import variables from '../../variables';
   
-  const data = ref([]);
+  interface StationData {
+    id: number;
+    name: string;
+    mean: number;
+    stationData: Array<{ id: number; price: number; created: string }>;
+  }
+
+  const data = ref<StationData>({
+    id: 0,
+    name: '',
+    mean: 0,
+    stationData: []
+  });
   const route = useRoute();
   
   const refreshData = () => {

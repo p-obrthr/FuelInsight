@@ -20,7 +20,12 @@
   import axios from 'axios';
   import variables from '../../variables';
   
-  const fuelData = ref([]);
+  interface FuelData {
+    id: number;
+    price: number;
+  }
+
+  const fuelData = ref<FuelData[]>([]);
   
   const refreshData = () => {
     axios.get(variables.API_URL + 'fuelprices/all')

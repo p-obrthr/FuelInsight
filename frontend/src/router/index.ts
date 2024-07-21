@@ -4,7 +4,7 @@ import FuelStation from '../views/FuelStation.vue'
 import AllFuelData from '../views/AllFuelData.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '../services/AuthenticationService'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

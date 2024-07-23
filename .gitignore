@@ -3,6 +3,7 @@
 **/notes.md
 **/dist
 **/.DS_Store
+.DS_Store
 
 # Vue.js specific
 node_modules

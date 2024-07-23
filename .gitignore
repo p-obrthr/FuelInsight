@@ -2,6 +2,7 @@
 **/.env
 **/notes.md
 **/dist
+**/.DS_Store
 
 # Vue.js specific
 node_modules
